@@ -4,6 +4,7 @@ import backend.entity.Complaint;
 import backend.service.ComplaintService;
 import org.springframework.web.bind.annotation.*;
 import backend.ai.GroqService;
+import backend.aws.DynamoComplaintService;
 
 
 import java.util.List;
@@ -16,13 +17,17 @@ public class ComplaintController {
 	private final GroqService groqService;
 
     private final ComplaintService service;
+    
+    private final DynamoComplaintService dynamoService;
 
     public ComplaintController(
             ComplaintService service,
-            GroqService geminiService) {
+            GroqService groqService,
+            DynamoComplaintService dynamoService) {
 
         this.service = service;
-        this.groqService = geminiService;
+        this.groqService = groqService;
+        this.dynamoService = dynamoService;
     }
     @PostMapping("/classify")
     public String classifyComplaint(
@@ -38,8 +43,13 @@ public class ComplaintController {
     public Complaint addComplaint(
             @RequestBody Complaint complaint) {
 
-        return service.save(
-                complaint);
+        Complaint savedComplaint =
+                service.save(complaint);
+
+        dynamoService.saveComplaint(
+                savedComplaint);
+
+        return savedComplaint;
     }
     
     @GetMapping("/{id}")

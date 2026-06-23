@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class GroqService {
 
-    @Value("${grok.api.key}")
+    @Value("${groq.api.key}")
     private String apiKey;
 
     public String classifyComplaint(String complaint) {

@@ -22,6 +22,7 @@ function ComplaintForm() {
   const [analysis, setAnalysis] = useState(null);
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [locationVerified, setLocationVerified] = useState(false);
+  
 
   useEffect(() => {
     fetch("/TamilNadu.geojson")
@@ -205,11 +206,44 @@ const getLocation = () => {
     };
 
   const submitComplaint =
-    async () => {
+  async () => {
 
-      try {
+    try {
 
-        const data = {
+      let imageUrl = "";
+
+      if(image){
+
+        const formData =
+          new FormData();
+
+        formData.append(
+          "file",
+          image
+        );
+
+        const uploadResponse =
+          await axios.post(
+            "http://localhost:8080/api/upload",
+            formData,
+            {
+              headers: {
+                "Content-Type":
+                  "multipart/form-data"
+              }
+            }
+          );
+
+        imageUrl =
+          uploadResponse.data.imageUrl;
+
+        console.log(
+          "S3 Image URL:",
+          imageUrl
+        );
+      }
+
+      const data = {
 
           citizenName,
 mobileNumber,
@@ -240,8 +274,11 @@ mobileNumber,
           district,
 
           createdAt:
-            new Date()
-              .toISOString()
+  new Date()
+    .toISOString(),
+
+imageUrl:
+  imageUrl
 
         };
         
@@ -271,6 +308,8 @@ setMobileNumber("");
         setAnalysis(null);
 
         setLocationVerified(false);
+
+        setImage(null);
 
       }
       catch (error) {
@@ -751,6 +790,27 @@ showPreviewModal &&
        {" "}
        {placeName}
       </p>
+
+      {
+ image &&
+
+ <div className="mb-3">
+
+  <strong>Evidence Image:</strong>
+
+  <br/>
+
+  <img
+   src={URL.createObjectURL(image)}
+   alt="Preview"
+   style={{
+    maxWidth: "250px",
+    borderRadius: "10px"
+   }}
+  />
+
+ </div>
+}
 
       <hr/>
 
