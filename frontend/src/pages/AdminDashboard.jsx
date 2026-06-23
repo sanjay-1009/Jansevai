@@ -3,6 +3,7 @@ import axios from "axios";
 import StatsCards from "../components/StatsCards";
 import TamilNaduHeatMap from "../components/TamilNaduHeatMap";
 import AIInsights from "../components/AIInsights";
+import CategoryCards from "../components/CategoryCards";
 import DashboardAnalytics
 from "../components/DashboardAnalytics";
 
@@ -118,6 +119,8 @@ async(id)=>{
 
       <StatsCards complaints={complaints}/>
 
+      <CategoryCards complaints={filteredComplaints}/>
+
       <AIInsights
   complaints={filteredComplaints}
 />
@@ -211,8 +214,21 @@ async(id)=>{
     />
 
   </div>
-
 </div>
+  <div className="d-flex justify-content-between mb-3">
+
+  <h5>
+    Complaints List
+  </h5>
+
+  <span className="badge bg-primary fs-6">
+
+    {filteredComplaints.length}
+    {" "}Complaints Found
+
+  </span>
+
+  </div>
 
       <table className="table table-bordered">
 
@@ -326,7 +342,31 @@ async(id)=>{
 
 </td>
 
-<td>{c.status}</td>
+<td>
+
+{
+  c.status === "Resolved" ?
+
+  <span className="badge bg-success">
+    Resolved
+  </span>
+
+  :
+
+  c.status === "In Progress" ?
+
+  <span className="badge bg-warning text-dark">
+    In Progress
+  </span>
+
+  :
+
+  <span className="badge bg-danger">
+    Pending
+  </span>
+}
+
+</td>
 
 <td>
 
