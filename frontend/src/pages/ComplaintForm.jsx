@@ -22,6 +22,7 @@ function ComplaintForm() {
   const [analysis, setAnalysis] = useState(null);
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [locationVerified, setLocationVerified] = useState(false);
+  const [complaintId, setComplaintId] = useState("");
   
 
   useEffect(() => {
@@ -289,8 +290,13 @@ imageUrl:
     data
   );
 
+  const id =
+  typeof response.data === "string"
+    ? response.data
+    : response.data?.complaintId || response.data?.id;
+
 setSuccessMessage(
-  `Complaint Registered Successfully. Your Complaint ID is #${response.data.id}`
+  `Complaint Registered Successfully. Your Complaint ID is #${id}`
 );
 
         setCitizenName("");

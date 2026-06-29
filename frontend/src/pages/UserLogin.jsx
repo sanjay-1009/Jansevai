@@ -1,60 +1,152 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./Register.css";
+import { loginUser } from "../services/cognitoService";
 
 function UserLogin() {
+
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
+    password: ""
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Mock login logic
-    localStorage.setItem("isAuthenticated", "true");
-    localStorage.setItem("userRole", "citizen");
-    navigate("/complaint");
-  };
+  const handleSubmit = async (e) => {
+
+  e.preventDefault();
+
+  try {
+
+    await loginUser(
+      formData.email,
+      formData.password
+    );
+
+    navigate("/register-complaint");
+
+  } catch (error) {
+
+    alert(error.message);
+
+  }
+
+};
 
   return (
-    <div className="auth-container">
-      <div className="glass-panel auth-card p-5">
-        <div className="text-center mb-4">
-          <i className="bi bi-person-circle auth-logo text-primary"></i>
-          <h2 className="font-weight-bold">Citizen Login</h2>
-          <p className="text-muted">Welcome back to JanSevai</p>
+
+    <div className="auth-page">
+
+      <div className="register-bento">
+
+        <Link
+          to="/"
+          className="back-link"
+        >
+          ← Return to Home
+        </Link>
+
+        <div className="text-center mb-5">
+
+          <i
+            className="bi bi-person-circle auth-logo"
+          ></i>
+
+          <h1 className="register-title">
+            Citizen Login
+          </h1>
+
+          <p className="register-subtitle">
+            Access your JanSevai account and track your complaints.
+          </p>
+
         </div>
 
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            className="modern-input"
-            placeholder="Email Address"
-            required
-            value={formData.email}
-            onChange={(e) => setFormData({...formData, email: e.target.value})}
-          />
-          <input
-            type="password"
-            className="modern-input"
-            placeholder="Password"
-            required
-            value={formData.password}
-            onChange={(e) => setFormData({...formData, password: e.target.value})}
-          />
-          
-          <button type="submit" className="action-btn submit-btn w-100 mt-3">
-            Sign In
+
+          <div className="row g-3">
+
+            <div className="col-12">
+
+              <input
+                type="email"
+                className="modern-input"
+                placeholder="Email Address"
+                required
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    email: e.target.value
+                  })
+                }
+              />
+
+            </div>
+
+            <div className="col-12">
+
+              <input
+                type="password"
+                className="modern-input"
+                placeholder="Password"
+                required
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    password: e.target.value
+                  })
+                }
+              />
+
+            </div>
+
+          </div>
+
+          <button
+            type="submit"
+            className="register-btn mt-4"
+          >
+            Login
           </button>
+
         </form>
 
         <div className="text-center mt-4">
-          <p className="text-muted">
-            Don't have an account? <Link to="/register" className="text-primary fw-bold text-decoration-none">Register here</Link>
+
+          <p>
+
+            New User?
+
+            <Link
+              to="/register"
+              className="text-primary fw-bold ms-2 text-decoration-none"
+            >
+              Create Account
+            </Link>
+
           </p>
+
+          <p>
+
+            Official Access?
+
+            <Link
+              to="/admin-login"
+              className="text-warning fw-bold ms-2 text-decoration-none"
+            >
+              Admin Login
+            </Link>
+
+          </p>
+
         </div>
+
       </div>
+
     </div>
+
   );
 }
 

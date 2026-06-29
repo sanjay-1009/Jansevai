@@ -1,49 +1,68 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { isLoggedIn, getRole } from "../services/auth";
 
 function Navbar() {
 
+  const navigate = useNavigate();
+
+  const loggedIn = isLoggedIn();
+  const role = getRole(); // "citizen" or "admin"
+
+  const logout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
   return (
-
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-
+    <nav className="navbar navbar-dark bg-primary">
       <div className="container">
 
-        <Link
-          className="navbar-brand"
-          to="/"
-        >
+        <Link className="navbar-brand" to="/">
           JanSevai AI
         </Link>
 
         <div>
 
-          <Link
-            className="btn btn-light me-2"
-            to="/"
-          >
-            Register Complaint
-          </Link>
+          {!loggedIn && (
+            <>
+              <Link to="/user-login" className="btn btn-light me-2">
+                Citizen Login
+              </Link>
 
-          <Link
-            className="btn btn-light me-2"
-            to="/track"
-          >
-            Track Complaint
-          </Link>
+              <Link to="/admin-login" className="btn btn-warning">
+                Admin Login
+              </Link>
+            </>
+          )}
 
-          <Link
-            className="btn btn-warning"
-            to="/admin"
-          >
-            Admin Dashboard
-          </Link>
+          {loggedIn && role === "citizen" && (
+            <>
+              <Link to="/register-complaint" className="btn btn-light me-2">
+                Register Complaint
+              </Link>
+
+              <Link to="/track" className="btn btn-outline-light me-2">
+                Track Complaint
+              </Link>
+            </>
+          )}
+
+          {loggedIn && role === "admin" && (
+            <Link to="/admin" className="btn btn-warning me-2">
+              Admin Dashboard
+            </Link>
+          )}
+
+          {loggedIn && (
+            <button onClick={logout} className="btn btn-danger">
+              Logout
+            </button>
+          )}
 
         </div>
 
       </div>
-
     </nav>
-
   );
 }
 

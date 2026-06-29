@@ -163,7 +163,9 @@ function StatsCards({ complaints }) {
               <div className="col-md-8">
 
                 <h4>
-                  🚨 High Priority Complaints
+                  <i class="bi bi-brightness-alt-high-fill"></i>
+                  <br></br>
+                  High Priority Complaints
                 </h4>
 
                 <p>

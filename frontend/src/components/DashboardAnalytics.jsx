@@ -42,8 +42,9 @@ function DashboardAnalytics({ complaints }) {
 
           <div className="card-body">
 
-            <h4>
-              📍 Top Districts
+            <h4 >
+              <i class="bi bi-geo"></i>
+               Top Districts
             </h4>
 
             <hr/>

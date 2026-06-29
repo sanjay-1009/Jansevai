@@ -1,0 +1,222 @@
+.auth-page {
+
+  min-height: 100vh;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eef5ff 0%,
+      #f8fbff 50%,
+      #eef2ff 100%
+    );
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 40px;
+}
+
+.register-bento {
+
+  width: 100%;
+
+  max-width: 950px;
+
+  background: rgba(255,255,255,0.95);
+
+  backdrop-filter: blur(15px);
+
+  border-radius: 32px;
+
+  padding: 50px;
+
+  position: relative;
+
+  border: 1px solid rgba(255,255,255,0.4);
+
+  box-shadow:
+    0 10px 40px rgba(13,110,253,0.08),
+    0 20px 60px rgba(0,0,0,0.08);
+}
+
+.back-link {
+
+  position: absolute;
+
+  top: 25px;
+
+  left: 25px;
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+  color: #0d6efd;
+
+  transition: 0.3s;
+}
+
+.back-link:hover {
+
+  color: #084298;
+
+  transform: translateX(-3px);
+}
+
+.register-title {
+
+  font-size: 3rem;
+
+  font-weight: 800;
+
+  background:
+    linear-gradient(
+      90deg,
+      #0d6efd,
+      #6610f2
+    );
+
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+.register-subtitle {
+
+  color: #6c757d;
+
+  margin-top: 10px;
+
+  font-size: 1.05rem;
+}
+
+.auth-logo {
+
+  font-size: 4rem;
+
+  color: #0d6efd;
+
+  margin-bottom: 15px;
+}
+
+.modern-input {
+
+  width: 100%;
+
+  border: 2px solid #eef2f7;
+
+  border-radius: 18px;
+
+  padding: 15px 18px;
+
+  outline: none;
+
+  background: #fafcff;
+
+  transition: all 0.3s ease;
+
+  font-size: 1rem;
+}
+
+.modern-input:focus {
+
+  border-color: #0d6efd;
+
+  box-shadow:
+    0 0 0 4px rgba(13,110,253,0.12);
+
+  background: white;
+}
+
+.register-btn {
+
+  width: 100%;
+
+  height: 58px;
+
+  border-radius: 18px;
+
+  font-size: 1.1rem;
+
+  font-weight: 700;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0d6efd,
+      #6610f2
+    );
+
+  border: none;
+
+  color: white;
+
+  transition: all 0.3s ease;
+}
+
+.register-btn:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 25px rgba(13,110,253,0.25);
+}
+
+.btn-outline-primary {
+
+  border-radius: 18px;
+
+  min-height: 56px;
+
+  font-weight: 600;
+}
+
+.btn-success {
+
+  border-radius: 18px;
+
+  min-height: 56px;
+
+  font-weight: 600;
+}
+
+.text-center p {
+
+  margin-bottom: 10px;
+}
+
+.text-center a {
+
+  transition: 0.3s;
+}
+
+.text-center a:hover {
+
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+
+  .register-bento {
+
+    padding: 30px;
+  }
+
+  .register-title {
+
+    font-size: 2rem;
+  }
+
+  .back-link {
+
+    position: static;
+
+    display: block;
+
+    margin-bottom: 20px;
+  }
+
+}

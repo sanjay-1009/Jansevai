@@ -49,7 +49,8 @@ function AIInsights({ complaints }) {
       <div className="card-body">
 
         <h4>
-          🤖 AI Governance Insights
+          <i class="bi bi-robot"></i> <br></br>
+           AI Governance Insights
         </h4>
 
         <hr/>
